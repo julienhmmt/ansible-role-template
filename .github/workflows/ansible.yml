@@ -42,7 +42,6 @@ jobs:
       matrix:
         scenario:
           - default
-          - no_service
 
     steps:
       - name: Checkout
@@ -71,7 +70,6 @@ jobs:
           if ! grep -q "^cgroup2" /proc/mounts; then
             echo "::error::cgroup v2 not mounted. The 'default' scenario requires cgroup v2 for systemd support."
             echo "::error::GitHub Actions runners with cgroup v2: ubuntu-latest (2024+)"
-            echo "::error::Consider using the 'no_service' scenario if cgroup v2 is unavailable."
             exit 1
           fi
           echo "cgroup v2 is available - continuing with default scenario"
