@@ -10,4 +10,4 @@
       ansible.builtin.apt:
         update_cache: true
         cache_valid_time: 0
-      when: ansible_os_family == 'Debian' or ansible_os_family == 'Ubuntu'
+      when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'Ubuntu'
