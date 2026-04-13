@@ -1,0 +1,6 @@
+---
+# Default variables — override in host_vars, group_vars or playbook vars.
+# These values should be safe, conservative defaults.
+
+ansible_role_template_manage_service: true
+ansible_role_template_service_name: "example"

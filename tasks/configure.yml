@@ -1,0 +1,16 @@
+---
+# Configuration tasks — apply settings, templates, etc.
+
+# Placeholder for configuration tasks
+# Example:
+# - name: "Ensure configuration directory exists"
+#   ansible.builtin.file:
+#     path: "/etc/example"
+#     state: directory
+#     mode: "0755"
+#
+# - name: "Deploy configuration file"
+#   ansible.builtin.template:
+#     src: "config.j2"
+#     dest: "/etc/example/config"
+#     mode: "0640"

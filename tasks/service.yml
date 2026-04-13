@@ -1,0 +1,18 @@
+---
+# Service management tasks — systemd services, etc.
+
+- name: "Check if service exists"
+  ansible.builtin.systemd:
+    name: "{{ ansible_role_template_service_name }}"
+  register: service_check
+  failed_when: false
+  when: ansible_role_template_manage_service | bool
+
+- name: "Manage systemd service"
+  ansible.builtin.systemd:
+    name: "{{ ansible_role_template_service_name }}"
+    state: started
+    enabled: true
+  when:
+    - ansible_role_template_manage_service | bool
+    - service_check is not failed

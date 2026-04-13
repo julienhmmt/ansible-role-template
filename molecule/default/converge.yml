@@ -1,0 +1,22 @@
+---
+- name: "Converge"
+  hosts: all
+  gather_facts: true
+  become: true
+
+  pre_tasks:
+    - name: "Wait for systemd to be fully started"
+      ansible.builtin.command: systemctl is-system-running
+      register: systemctl_status
+      until: >
+        systemctl_status.stdout in ['running', 'degraded']
+      retries: 10
+      delay: 3
+      changed_when: false
+
+    - name: "Show systemd status"
+      ansible.builtin.debug:
+        var: systemctl_status.stdout
+
+  roles:
+    - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | default('.') | basename }}"

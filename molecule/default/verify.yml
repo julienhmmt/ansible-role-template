@@ -1,0 +1,50 @@
+---
+- name: "Verify"
+  hosts: all
+  gather_facts: true
+  become: true
+
+  tasks:
+    # -------------------------------------------------------
+    # Exemples de vérifications — adapter au rôle concret
+    # -------------------------------------------------------
+
+    - name: "Gather service facts"
+      ansible.builtin.service_facts:
+
+    - name: "Assert example package is installed"
+      ansible.builtin.package_facts:
+        manager: auto
+
+    # Exemple : vérifier qu'un service tourne
+    # - name: "Assert example service is running"
+    #   ansible.builtin.assert:
+    #     that:
+    #       - "'example.service' in ansible_facts.services"
+    #       - "ansible_facts.services['example.service'].state == 'running'"
+    #       - "ansible_facts.services['example.service'].status == 'enabled'"
+    #     fail_msg: "Service example is not running or not enabled"
+
+    # Exemple : vérifier qu'un fichier de configuration existe
+    # - name: "Assert configuration file exists"
+    #   ansible.builtin.stat:
+    #     path: "/etc/example/config"
+    #   register: config_file
+    #
+    # - name: "Assert configuration file has correct permissions"
+    #   ansible.builtin.assert:
+    #     that:
+    #       - config_file.stat.exists
+    #       - config_file.stat.mode == '0640'
+    #       - config_file.stat.pw_name == 'root'
+    #     fail_msg: "Config file missing or wrong permissions"
+
+    # Exemple : vérifier qu'un port est en écoute
+    # - name: "Assert port 8080 is listening"
+    #   ansible.builtin.wait_for:
+    #     port: 8080
+    #     timeout: 10
+
+    - name: "Verification placeholder — add your assertions here"
+      ansible.builtin.debug:
+        msg: "Verification passed (no assertions defined yet)"

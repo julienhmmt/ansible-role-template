@@ -1,0 +1,18 @@
+---
+# Entry point: includes sub-task files in logical order.
+
+- name: "Assert required variables are defined"
+  ansible.builtin.import_tasks: assert.yml
+  tags: always
+
+- name: "Install"
+  ansible.builtin.import_tasks: install.yml
+  tags: install
+
+- name: "Configure"
+  ansible.builtin.import_tasks: configure.yml
+  tags: configure
+
+- name: "Service"
+  ansible.builtin.import_tasks: service.yml
+  tags: service

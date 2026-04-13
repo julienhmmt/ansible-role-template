@@ -1,0 +1,81 @@
+---
+name: CI
+
+on:
+  push:
+    branches: ["main", "develop"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Run yamllint
+        run: yamllint .
+
+      - name: Run ansible-lint
+        run: ansible-lint
+
+  molecule:
+    name: Molecule — ${{ matrix.scenario }}
+    runs-on: ubuntu-latest
+    needs: lint
+
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario:
+          - default
+          - no_service
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+
+      # systemd in Docker requires cgroup v2 on the runner
+      - name: Check cgroup v2 availability
+        if: matrix.scenario == 'default'
+        run: |
+          echo "Checking cgroup v2 availability..."
+          cat /proc/cgroups
+          echo ""
+          echo "Current mounts:"
+          cat /proc/mounts | grep cgroup
+          echo ""
+          if ! grep -q "^cgroup2" /proc/mounts; then
+            echo "::error::cgroup v2 not mounted. The 'default' scenario requires cgroup v2 for systemd support."
+            echo "::error::GitHub Actions runners with cgroup v2: ubuntu-latest (2024+)"
+            echo "::error::Consider using the 'no_service' scenario if cgroup v2 is unavailable."
+            exit 1
+          fi
+          echo "cgroup v2 is available - continuing with default scenario"
+
+      - name: Run Molecule
+        run: molecule test -s ${{ matrix.scenario }}
+        env:
+          PY_COLORS: "1"
+          ANSIBLE_FORCE_COLOR: "1"

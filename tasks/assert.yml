@@ -1,0 +1,7 @@
+---
+- name: "Assert OS family is supported"
+  ansible.builtin.assert:
+    that:
+      - ansible_os_family in ['Debian', 'Ubuntu']
+    fail_msg: "Unsupported OS family: {{ ansible_os_family }}"
+    success_msg: "OS family {{ ansible_os_family }} is supported"
