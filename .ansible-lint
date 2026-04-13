@@ -1,0 +1,4 @@
+---
+skip_list:
+  - role-name  # Skip for template - users should customize role_name in meta/main.yml
+  - command-instead-of-module  # systemctl is-system-running has no systemd module equivalent
