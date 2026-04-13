@@ -9,14 +9,13 @@ help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
 		| awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
-venv: ## Create Python virtual environment and source it
+venv: ## Create Python virtual environment
 	@if [ ! -d "$(VENV_DIR)" ]; then \
 		python3 -m venv $(VENV_DIR); \
 	else \
 		echo "Virtual environment already exists at $(VENV_DIR)"; \
 	fi
-	@echo "source $(VENV_DIR)/bin/activate"
-	source $(VENV_DIR)/bin/activate
+	@echo "Run 'source $(VENV_DIR)/bin/activate' to activate the virtual environment"
 
 install-deps: venv ## Install Python test dependencies
 	$(PIP) install -r requirements-dev.txt
