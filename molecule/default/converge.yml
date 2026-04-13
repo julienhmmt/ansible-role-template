@@ -19,4 +19,4 @@
         var: systemctl_status.stdout
 
   roles:
-    - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | default('.') | basename }}"
+    - role: ../

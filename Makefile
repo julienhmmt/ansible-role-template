@@ -16,6 +16,7 @@ venv: ## Create Python virtual environment and source it
 		echo "Virtual environment already exists at $(VENV_DIR)"; \
 	fi
 	@echo "source $(VENV_DIR)/bin/activate"
+	source $(VENV_DIR)/bin/activate
 
 install-deps: venv ## Install Python test dependencies
 	$(PIP) install -r requirements-dev.txt

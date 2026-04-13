@@ -38,7 +38,9 @@ provisioner:
     defaults:
       interpreter_python: auto_silent
       callbacks_enabled: profile_tasks, timer
-      stdout_callback: yaml
+      stdout_callback: ansible.builtin.default
+      result_format: yaml
+      roles_path: ../
     connection:
       pipelining: true
   inventory:

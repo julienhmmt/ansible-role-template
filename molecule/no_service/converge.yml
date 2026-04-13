@@ -11,7 +11,7 @@
       changed_when: true
 
   roles:
-    - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') | default('.') | basename }}"
+    - role: ../
       vars:
         # Disable service management for this scenario
         ansible_role_template_manage_service: false

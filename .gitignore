@@ -35,3 +35,6 @@ Thumbs.db
 *.vault
 vault_pass.txt
 .vault_password
+
+# Log
+ansible.log
