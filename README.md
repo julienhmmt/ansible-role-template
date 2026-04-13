@@ -60,16 +60,15 @@ make converge      # deploys in the container
 make verify        # runs assertions
 make login         # shell in the container for debugging
 make idempotence   # verifies that a second run changes nothing
-molecule test -s no_service   # lightweight scenario without systemd
 make lint          # yamllint + ansible-lint
+molecule test -s default  # lightweight scenario with systemd
 ```
 
 ### Molecule Scenarios
 
 | Scenario | Image | Systemd | Usage |
 | -------- | ----- | ------- | ----- |
-| `default` | Debian 13 (custom build) | yes | Full test with services |
-| `no_service` | `debian:trixie-slim` | no | Quick install/configure test |
+| `default` | Debian 13 (geerlingguy) + Ubuntu 24 (geerlingguy) | yes | Full test with services |
 
 ### Notes on systemd in Docker
 
@@ -77,7 +76,7 @@ The `default` scenario uses a privileged-free container with `cgroupns_mode: hos
 
 ## CI
 
-The GitHub Actions pipeline (`.github/workflows/ansible.yml`) executes: lint (yamllint + ansible-lint) then molecule test on each scenario.
+The GitHub Actions pipeline (`.github/workflows/ansible.yml`) executes: lint (yamllint + ansible-lint) only.
 
 ## License
 
