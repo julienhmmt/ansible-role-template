@@ -1,6 +1,7 @@
 ---
 galaxy_info:
   role_name: ansible_role_template
+  namespace: julienhmmt
   author: Julien HOMMET
   description: "A simple and opinionated ansible role template"
   license: AGPL-3.0
