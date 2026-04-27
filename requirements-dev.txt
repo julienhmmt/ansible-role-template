@@ -1,7 +1,7 @@
 # Python dependencies for Molecule test environment
 # Install with: pip install -r requirements-dev.txt
 
-ansible>=9.0.0
+ansible>=13.6.0
 molecule>=24.0.0
 molecule-plugins[docker]>=23.0.0
 docker>=7.0.0
